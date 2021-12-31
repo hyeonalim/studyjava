@@ -1,10 +1,14 @@
+import service.Service;
+
 public class App {
     public static void main(String[] args) throws Exception {
         
         while(true){
 
-            new FileIO().run();
+            new Service().run();
 
         }
+
     }
+    
 }
