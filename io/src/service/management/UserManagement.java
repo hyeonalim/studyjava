@@ -10,13 +10,6 @@
 */
 package service.management;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import input.Check;
 import input.Input;
 import service.ui.UserUI;
@@ -24,7 +17,6 @@ import service.ui.UserUI;
 public class UserManagement extends CommonManagement {
 
     String fileName = "/tmp/user.csv";
-    CommonManagement commonManagement = new CommonManagement();
 
     //전체 프로세스
     public void proccess(){
@@ -55,17 +47,13 @@ public class UserManagement extends CommonManagement {
 
         UserUI.addUser();
 
-        try{
-
-            //파일 작성
-            BufferedWriter fioWriter = new BufferedWriter(new FileWriter(fileName, true));
-
+    
             System.out.println("회원 아이디: ");
             String id = Input.inputString();
             
-            boolean isXxexist = commonManagement.find(fileName, id, 0);
+            int isExist = find(fileName, id, 0);
 
-            if(isXxexist == true){
+            if(isExist > 0){
                 
                 System.out.println("이미 아이디가 존재합니다.");
 
@@ -77,48 +65,48 @@ public class UserManagement extends CommonManagement {
                 System.out.println("전화번호: ");
                 String phone = Input.inputString();
 
-                isXxexist = commonManagement.find(fileName, phone, 0);
+                isExist = find(fileName, phone, 0);
 
-                if(isXxexist == true){
+                if(isExist > 0){
 
                     System.out.println("이미 전화번호가 존재합니다.");
 
                 }else{
 
-                    int isX = 0;
+                    int isNotDeleted = 1;
 
-                    fioWriter.write(id + ", " + name + ", " + phone + ", " + isX);
-                    fioWriter.newLine();
-    
-                    fioWriter.close();
-    
+                    String item = id + ", " + name + ", " + phone + ", " + isNotDeleted;
+
+                    add(fileName, item);
                 }
             }
-        }catch(IOException e){
-
-            if(e instanceof FileNotFoundException){
-                
-                System.out.println("파일이 없습니다.");
-
-            }else{
-
-                System.out.println("다시 확인해주세요.");
-
-            }
-        }
+        
     }
 
-    //이유를 알 수 없는 에러
-    public void delete(String fileName){
+    private void delete(String fileName){
 
         UserUI.removeUser();
-        commonManagement.delete(fileName);
+
+        String findItem = Input.inputString();
+        
+        boolean isDelete = delete(fileName, findItem, 0);
+        
+        if(isDelete == true){
+
+            System.out.println(findItem + "을 삭제하였습니다.");
+
+        }else{
+
+            System.out.println("삭제하지 못하였습니다.");
+
+        }
+
     }
 
     private void find(String fileName){
 
         UserUI.searchUser();
-        commonManagement.find(fileName, 1); //DB 순서: 아이디, 이름, 전화번호, 삭제여부
+        find(fileName, 1, 3); //DB 순서: 아이디, 이름, 전화번호, 삭제여부
 
     }
 

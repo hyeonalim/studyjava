@@ -22,6 +22,7 @@ public class UserUI {
     public static void removeUser(){
 
         System.out.println("회원 삭제를 진행합니다.");
+        System.out.println("삭제할 회원명을 입력해주세요.");
 
     }
 

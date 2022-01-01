@@ -22,6 +22,8 @@ public class BookUI {
     public static void removeBook(){
 
         System.out.println("책 삭제를 진행합니다.");
+        System.out.println("삭제할 책 이름을 입력해주세요.");
+
 
     }
 

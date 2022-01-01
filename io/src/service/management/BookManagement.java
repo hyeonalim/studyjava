@@ -7,21 +7,13 @@
 */
 package service.management;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import input.Check;
 import input.Input;
 import service.ui.BookUI;
 
-public class BookManagement {
+public class BookManagement extends CommonManagement {
 
     String fileName = "/tmp/book.csv";
-    CommonManagement commonManagement = new CommonManagement();
 
     //전체 프로세스
     public void proccess(){
@@ -52,69 +44,55 @@ public class BookManagement {
 
         BookUI.addBook();
 
-        try{
-
-            //파일 작성
-            BufferedWriter fioWriter = new BufferedWriter(new FileWriter(fileName, true));
-            BufferedReader fioReader = new BufferedReader(new FileReader(fileName));
-
-            //책아이디, 책이름, 재고, 삭제여부
-            System.out.println("책이름: ");
-            String name = Input.inputString();
+        //책아이디, 책이름, 재고, 삭제여부
+        System.out.println("책이름: ");
+        String name = Input.inputString();
             
-            boolean isXxexist = commonManagement.find(fileName, name, 0);
+        int isExist = find(fileName, name, 1);
 
-            if(isXxexist == true){
+        if(isExist > 0){
                 
-                System.out.println("이미 책이 존재합니다.");
+            System.out.println("이미 책이 존재합니다.");
 
-            }else{
+        }else{
 
-                int totalStock = 1;
-                int isX = 0;
+            int totalStock = 1;
+            int isNotDeleted = 1;
 
-                String line = null;
-                int id = 0;
-
-                while((line = fioReader.readLine()) != null) {
-        
-                    id++;
-
-                }
+            int id = getNextID(fileName);
                 
-                fioWriter.write(id + ", " + name + ", " + totalStock + ", " + isX);
-                fioWriter.newLine();
-    
-                fioWriter.close();
-                fioReader.close();
+            if(id != -1){
+
+                String item = id + ", " + name + ", " + totalStock + ", " + isNotDeleted;
                 
-            }
-        }catch(IOException e){
-
-            if(e instanceof FileNotFoundException){
-                
-                System.out.println("파일이 없습니다.");
-
-            }else{
-
-                System.out.println("다시 확인해주세요.");
+                add(fileName, item);
 
             }
         }
-
     }
 
     private void delete(String fileName){
+        
+        //책아이디, 책이름, 재고, 삭제여부
+        String findItem = Input.inputString();
+        
+        boolean isDelete = delete(fileName, findItem, 1);
 
-        BookUI.removeBook();
-        commonManagement.delete(fileName);
+        if(isDelete == true){
 
+            System.out.println(findItem + "이 삭제되었습니다.");
+
+        }else{
+
+            System.out.println("삭제되지 않았습니다.");
+
+        }
     }
 
     private void find(String fileName){
 
         BookUI.searchBook();
-        commonManagement.find(fileName, 1); //DB 순서: 책아이디, 책이름, 재고, 삭제여부
+        find(fileName, 1, 3); //DB 순서: 책아이디, 책이름, 재고, 삭제여부
 
     }
 
