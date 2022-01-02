@@ -11,8 +11,8 @@ public class BorrowingManagement extends CommonManagement {
     //전체 프로세스
     public void proccess(){
 
-        int borrowingMenuInput = BorrowingUI.menuPrint();
-        int borrowingMenu = Check.numCheck(borrowingMenuInput);
+        int borrowingMenuInput = BorrowingUI.printMenuAndReturnNumOfMenu();
+        int borrowingMenu = Check.getNumInRangeUntilValid(borrowingMenuInput);
 
         if(borrowingMenu == 1){
 
@@ -40,21 +40,21 @@ public class BorrowingManagement extends CommonManagement {
 
     private void searchUser(){
 
-        BorrowingUI.searchUser();
+        BorrowingUI.printSearchingUserProcess();
         find(fileName, 1, 3); //DB 순서: 아이디, 유저 아이디, 책 아이디, 대출 유무
 
     }
 
     private void searchBook(){
 
-        BorrowingUI.searchBook();
+        BorrowingUI.printSearchingBookProcess();
         find(fileName, 2, 3); //DB 순서: 아이디, 유저 아이디, 책 아이디, 대출 유무
         
     }
 
     private void checkOut(){
 
-        BorrowingUI.checkOut();
+        BorrowingUI.printCheckOutProcess();
 
         System.out.println("회원 이름: ");
         String userId = Input.inputString();
@@ -98,7 +98,7 @@ public class BorrowingManagement extends CommonManagement {
 
     private void check(){
 
-        BorrowingUI.check();
+        BorrowingUI.printCheckProcess();
 
         System.out.println("회원 이름: ");
         String userId = Input.inputString();

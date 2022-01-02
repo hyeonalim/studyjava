@@ -5,7 +5,7 @@ public class Check {
     private Check(){}
 
     //숫자 입력받기
-    public static int numCheck(int num){
+    public static int getNumInRangeUntilValid(int num){
 
         System.out.println("1 ~ " + num + " 를 입력해주세요.");
 

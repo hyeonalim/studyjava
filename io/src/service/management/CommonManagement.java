@@ -42,7 +42,7 @@ public abstract class CommonManagement {
 
     /**
      * 
-     * 파일을 더할 때 그 다음으로 올 id 값을 구하기 위한 메소드입니다.
+     * 데이터를 새로 추가할 때 그 다음으로 올 id 값을 구하기 위한 메소드입니다.
      * @param fileName : 읽어올 파일
      * @return : id 값으로, -1 이면 에러, 0 이상으로는 다음의 id 값
      */
@@ -89,57 +89,59 @@ public abstract class CommonManagement {
         try(BufferedReader fioReader = new BufferedReader(new FileReader(fileName))){
             
             //파일 작성
-            //1. 삭제하고자 하는 position 이전까지는 이동하며 dummy에 저장
+            //삭제하고자 하는 id 가져오기
             int id = find(fileName, findItem, arrayNum);
 
             String item = "";
+            String line = null; //읽으며 이동
+            int loopNum = 0;
 
+            //id가 존재하는 경우
             if(id > 0){
 
-                String line = null;
+                //파일 전체 읽기
+                while((line = fioReader.readLine())!=null){
 
-                for(int i=0; i<id; i++) {
+                    if(loopNum < id){
 
-                    line = fioReader.readLine(); //읽으며 이동
-    
-                    item += (line + "\r\n");
-    
-                }
+                        //삭제 전까지의 파일 부분 읽어오기
+                        item += (line + System.lineSeparator());
 
-                //2. 변경되는 데이터 저장
-                while((line = fioReader.readLine()) != null) {
-            
-                    String[] lineArray = line.split(", ");
-    
-                    while(findItem.equals(lineArray[arrayNum])){
-    
-                        for(int i=0; i<lineArray.length - 1; i++) {
+                    }else if(loopNum == id){
 
-                            item += lineArray[i];
-            
+                        //삭제하는 파일 부분 읽어와서 삭제 부분만 수정 ( 0 -> 1)
+                        String[] lineArray = line.split(", ");
+    
+                        if(findItem.equals(lineArray[arrayNum])){
+        
+                            for(int i=0; i<lineArray.length - 2; i++) {
+    
+                                item += lineArray[i] + ", ";
+
+                            }
+
+                            item += (", 1" + System.lineSeparator());
+
                         }
+                    }else{
 
-                        item += (", 1" + "\r\n");
-                        
-                        break;
+                        //삭제 부분 이후의 파일 부분 읽어오기
+                        item += (line + System.lineSeparator());
 
-                    }
-                }
+	    		    }
 
-    			//3. 삭제하고자 하는 position 이후부터 dummy에 저장
-	    		while((line = fioReader.readLine())!=null) {
+                    loopNum++;
 
-		    		item += (line + "\r\n" ); 
+                } 
 
-			    }
-
-                if(new File(fileName).exists()){   //파일이 존재하면 파일 삭제
+                //파일이 존재하면 파일 삭제
+                if(new File(fileName).exists()){
 
                     new File(fileName).delete();
 
                 }
 
-    			//4. FileWriter를 이용해서 덮어쓰기
+    			//수정할 문구 받아서 파일 재작성
                 add(fileName, item);
 
                 return true;
@@ -160,7 +162,7 @@ public abstract class CommonManagement {
 
             }
             
-            return true;
+            return false;
 
         }
     }
@@ -169,14 +171,14 @@ public abstract class CommonManagement {
      * 파일 내에 찾는 내용이 있는지 확인하는 메소드
      * @param fileName : 읽어올 파일
      * @param arrayNum : 찾을 내용의 위치
-     * @param isExit : 삭제 여부
+     * @param isNotDelete : 삭제 여부
      */
-    public void find(String fileName, int arrayNum, int isExit){
+    public void find(String fileName, int arrayNum, int isNotDelete){
 
         try(BufferedReader fio = new BufferedReader(new FileReader(fileName))){
     
             String findItem = Input.inputString();
-            boolean isXxexist = false; //유무 판단
+            boolean isExist = false; //유무 판단
 
             //BufferedReader 사용
             String line = null;
@@ -185,12 +187,12 @@ public abstract class CommonManagement {
             
                 String[] lineArray = line.split(", ");
 
-                while(findItem.equals(lineArray[arrayNum])){
+                if(findItem.equals(lineArray[arrayNum])){
 
-                    if(lineArray[isExit].equals("0")){
+                    if(lineArray[isNotDelete].equals("0")){
 
                         System.out.print(lineArray[arrayNum] + "을 찾았습니다.");
-                        isXxexist = true;
+                        isExist = true;
     
                     }
 
@@ -200,7 +202,7 @@ public abstract class CommonManagement {
 
             System.out.println();
 
-            if(isXxexist == false){
+            if(isExist == false){
 
                 System.out.println("찾지 못했습니다.");
 
@@ -241,11 +243,14 @@ public abstract class CommonManagement {
             
                 String[] lineArray = line.split(", ");
 
-                while(findItem.equals(lineArray[arrayNum])){
-
-                    id++;
+                if(findItem.equals(lineArray[arrayNum])){
 
                     break;
+                
+                }else{
+                
+                    id++;
+                
                 }
             }
 

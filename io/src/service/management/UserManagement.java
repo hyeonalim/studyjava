@@ -21,8 +21,8 @@ public class UserManagement extends CommonManagement {
     //전체 프로세스
     public void proccess(){
 
-        int userMenuInput = UserUI.menuPrint();
-        int userMenu = Check.numCheck(userMenuInput);
+        int userMenuInput = UserUI.printMenuAndReturnNumOfMenu();
+        int userMenu = Check.getNumInRangeUntilValid(userMenuInput);
 
         if(userMenu == 1){
 
@@ -45,7 +45,7 @@ public class UserManagement extends CommonManagement {
 
     private void add(String fileName){
 
-        UserUI.addUser();
+        UserUI.printAddingProcess();
 
     
             System.out.println("회원 아이디: ");
@@ -85,11 +85,11 @@ public class UserManagement extends CommonManagement {
 
     private void delete(String fileName){
 
-        UserUI.removeUser();
+        UserUI.printDeleteingProcess();
 
         String findItem = Input.inputString();
         
-        boolean isDelete = delete(fileName, findItem, 0);
+        boolean isDelete = delete(fileName, findItem, 1);
         
         if(isDelete == true){
 
@@ -105,7 +105,7 @@ public class UserManagement extends CommonManagement {
 
     private void find(String fileName){
 
-        UserUI.searchUser();
+        UserUI.printSearchingProcess();
         find(fileName, 1, 3); //DB 순서: 아이디, 이름, 전화번호, 삭제여부
 
     }

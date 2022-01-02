@@ -18,8 +18,8 @@ public class BookManagement extends CommonManagement {
     //전체 프로세스
     public void proccess(){
 
-        int bookMenuInput = BookUI.menuPrint();
-        int bookMenu = Check.numCheck(bookMenuInput);
+        int bookMenuInput = BookUI.printMenuAndReturnNumOfMenu();
+        int bookMenu = Check.getNumInRangeUntilValid(bookMenuInput);
 
         if(bookMenu == 1){
 
@@ -42,7 +42,7 @@ public class BookManagement extends CommonManagement {
     
     private void add(String fileName){
 
-        BookUI.addBook();
+        BookUI.printAddingProcess();
 
         //책아이디, 책이름, 재고, 삭제여부
         System.out.println("책이름: ");
@@ -91,7 +91,7 @@ public class BookManagement extends CommonManagement {
 
     private void find(String fileName){
 
-        BookUI.searchBook();
+        BookUI.printSearchingProcess();
         find(fileName, 1, 3); //DB 순서: 책아이디, 책이름, 재고, 삭제여부
 
     }

@@ -24,8 +24,8 @@ public class Service {
 
     public void run(){
 
-        int mainInput = MainUI.menuPrint(); //메인 UI 노출
-        int menu = Check.numCheck(mainInput);
+        int mainInput = MainUI.printMenuAndReturnNumOfMenu(); //메인 UI 노출
+        int menu = Check.getNumInRangeUntilValid(mainInput);
 
         if(menu == 1){
 

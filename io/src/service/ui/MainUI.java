@@ -4,7 +4,7 @@ public class MainUI {
 
     private MainUI(){}
 
-    public static int menuPrint(){
+    public static int printMenuAndReturnNumOfMenu(){
         
         System.out.println("1. 회원메뉴");
         System.out.println("2. 책관리메뉴");

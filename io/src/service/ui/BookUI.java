@@ -3,7 +3,7 @@ package service.ui;
 public class BookUI {
     private BookUI(){}
 
-    public static int menuPrint(){
+    public static int printMenuAndReturnNumOfMenu(){
         
         System.out.println("1. 책입고");
         System.out.println("2. 책삭제");
@@ -13,13 +13,13 @@ public class BookUI {
         
     }
 
-    public static void addBook(){
+    public static void printAddingProcess(){
 
         System.out.println("책 입고를 진행합니다.");
 
     }
 
-    public static void removeBook(){
+    public static void printDeleteingProcess(){
 
         System.out.println("책 삭제를 진행합니다.");
         System.out.println("삭제할 책 이름을 입력해주세요.");
@@ -27,7 +27,7 @@ public class BookUI {
 
     }
 
-    public static void searchBook(){
+    public static void printSearchingProcess(){
 
         System.out.println("책 검색을 진행합니다.");
         System.out.println("검색어를 입력해주세요.");
