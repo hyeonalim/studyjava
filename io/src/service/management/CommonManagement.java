@@ -112,7 +112,7 @@ public abstract class CommonManagement {
                         //삭제하는 파일 부분 읽어와서 삭제 부분만 수정 ( 0 -> 1)
                         String[] lineArray = line.split(", ");
     
-                        if(findItem.equals(lineArray[arrayNum])){
+                        if(findItem.equals(lineArray[arrayNum])) {
         
                             for(int i=0; i<lineArray.length - 2; i++) {
     

@@ -48,38 +48,38 @@ public class UserManagement extends CommonManagement {
         UserUI.printAddingProcess();
 
     
-            System.out.println("회원 아이디: ");
-            String id = Input.inputString();
+        System.out.println("회원 아이디: ");
+        String id = Input.inputString();
             
-            int isExist = find(fileName, id, 0);
+        int isExist = find(fileName, id, 0);
+
+        if(isExist > 0){
+                
+            System.out.println("이미 아이디가 존재합니다.");
+
+        }else{
+
+            System.out.println("회원 이름: ");
+            String name = Input.inputString();
+
+            System.out.println("전화번호: ");
+            String phone = Input.inputString();
+
+            isExist = find(fileName, phone, 0);
 
             if(isExist > 0){
-                
-                System.out.println("이미 아이디가 존재합니다.");
+
+                System.out.println("이미 전화번호가 존재합니다.");
 
             }else{
 
-                System.out.println("회원 이름: ");
-                String name = Input.inputString();
+                int isNotDeleted = 1;
 
-                System.out.println("전화번호: ");
-                String phone = Input.inputString();
+                String item = id + ", " + name + ", " + phone + ", " + isNotDeleted;
 
-                isExist = find(fileName, phone, 0);
-
-                if(isExist > 0){
-
-                    System.out.println("이미 전화번호가 존재합니다.");
-
-                }else{
-
-                    int isNotDeleted = 1;
-
-                    String item = id + ", " + name + ", " + phone + ", " + isNotDeleted;
-
-                    add(fileName, item);
-                }
+                add(fileName, item);
             }
+        }
         
     }
 
