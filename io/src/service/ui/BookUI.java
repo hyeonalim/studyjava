@@ -30,7 +30,7 @@ public class BookUI {
     public static void printSearchingProcess(){
 
         System.out.println("책 검색을 진행합니다.");
-        System.out.println("검색어를 입력해주세요.");
+        System.out.println("책 이름을 입력해주세요.");
 
     }
 

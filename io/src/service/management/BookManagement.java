@@ -48,9 +48,9 @@ public class BookManagement extends CommonManagement {
         System.out.println("책이름: ");
         String name = Input.inputString();
             
-        int isExist = find(fileName, name, 1);
+        int id = getID(fileName, name, 1, 3);
 
-        if(isExist > 0){
+        if(id >= 0){
                 
             System.out.println("이미 책이 존재합니다.");
 
@@ -59,11 +59,11 @@ public class BookManagement extends CommonManagement {
             int totalStock = 1;
             int isNotDeleted = 1;
 
-            int id = getNextID(fileName);
+            int nextID = getNextID(fileName);
                 
-            if(id != -1){
+            if(nextID >= 0){
 
-                String item = id + ", " + name + ", " + totalStock + ", " + isNotDeleted;
+                String item = nextID + ", " + name + ", " + totalStock + ", " + isNotDeleted;
                 
                 add(fileName, item);
 
@@ -73,27 +73,47 @@ public class BookManagement extends CommonManagement {
 
     private void delete(String fileName){
         
-        //책아이디, 책이름, 재고, 삭제여부
+        BookUI.printDeleteingProcess();
         String findItem = Input.inputString();
         
-        boolean isDelete = delete(fileName, findItem, 1);
+        String checkOutListFileName = "/tmp/checkOutList.csv";
+        boolean isListInBook = find(checkOutListFileName, findItem, 2, 3); //대출 리스트에 해당 회원 네임이 있는지 확인
 
-        if(isDelete == true){
+        if(isListInBook == true){
 
-            System.out.println(findItem + "이 삭제되었습니다.");
+            System.out.println("대출 중인 책이 있어 삭제 불가합니다.");
 
         }else{
+         
+            boolean isDelete = delete(fileName, findItem, 1, 3);
+        
+            if(isDelete == true){
 
-            System.out.println("삭제되지 않았습니다.");
+                System.out.println(findItem + "을 삭제하였습니다.");
 
+            }else{
+
+                System.out.println("삭제하지 못하였습니다.");
+
+            }
         }
     }
 
     private void find(String fileName){
 
         BookUI.printSearchingProcess();
-        find(fileName, 1, 3); //DB 순서: 책아이디, 책이름, 재고, 삭제여부
+        String bookName = Input.inputString();
+        boolean isExist = find(fileName, bookName, 1, 3); //DB 순서: 책아이디, 책이름, 재고, 삭제여부
 
+        if(isExist == true){
+
+            System.out.println("찾았습니다.");
+
+        }else{
+
+            System.out.println("찾지 못했습니다.");
+
+        }
     }
 
 }

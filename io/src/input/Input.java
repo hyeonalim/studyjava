@@ -39,6 +39,14 @@ public class Input {
 
         String name = scn.nextLine();
 
+        while(name.equals("")){
+            
+            System.out.println("문자(한글, 영어 등) 를 입력해주세요.");
+
+            name = scn.nextLine();
+
+        }
+
         return name;
 
     }

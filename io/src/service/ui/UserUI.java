@@ -29,7 +29,7 @@ public class UserUI {
     public static void printSearchingProcess(){
 
         System.out.println("회원 검색을 진행합니다.");
-        System.out.println("검색어를 입력해주세요.");
+        System.out.println("회원명을 입력해주세요.");
 
     }
     
