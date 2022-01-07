@@ -125,9 +125,10 @@ public class BorrowingManagement extends CommonManagement {
                             if(nextID >= 0){
                                 //DB 순서: 아이디, 유저 아이디, 책 아이디, 대출 유무
                                 //책 아이디 -> 책 이름 (임시)
-                                String item = nextID + ", " + userName + ", " + bookName + ", " + isReturned;
+                                StringBuilder item = new StringBuilder();
+                                item.append(nextID + ", " + userName + ", " + bookName + ", " + isReturned);
 
-                                add(fileName, item);
+                                add(fileName, item.toString());
                             }
                         }    
                     }else{

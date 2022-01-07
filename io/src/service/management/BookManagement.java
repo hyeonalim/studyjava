@@ -63,9 +63,10 @@ public class BookManagement extends CommonManagement {
                 
             if(nextID >= 0){
 
-                String item = nextID + ", " + name + ", " + totalStock + ", " + isNotDeleted;
+                StringBuilder item = new StringBuilder();
+                item.append(nextID + ", " + name + ", " + totalStock + ", " + isNotDeleted);
                 
-                add(fileName, item);
+                add(fileName, item.toString());
 
             }
         }

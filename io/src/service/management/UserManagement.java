@@ -76,9 +76,10 @@ public class UserManagement extends CommonManagement {
                 id = getNextID(fileName);
                 int isNotDeleted = 1;
 
-                String item = id + ", " + idName + ", " + name + ", " + phone + ", " + isNotDeleted;
+                StringBuilder item = new StringBuilder();
+                item.append(id + ", " + idName + ", " + name + ", " + phone + ", " + isNotDeleted);
 
-                add(fileName, item);
+                add(fileName, item.toString());
             }
         }
         

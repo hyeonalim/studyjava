@@ -19,6 +19,7 @@ public abstract class CommonManagement {
     public void add(String fileName, String item){
 
         try(BufferedWriter fioWriter = new BufferedWriter(new FileWriter(fileName, true))){
+            
             //파일 작성
             fioWriter.write(item);
             fioWriter.newLine();
@@ -94,7 +95,7 @@ public abstract class CommonManagement {
 
             //삭제하고자 하는 id 가져오기
             int id = 0;
-            String item = "";
+            StringBuilder item = new StringBuilder();
             String line = null; //읽으며 이동
             int loopNum = 0;
 
@@ -106,7 +107,7 @@ public abstract class CommonManagement {
                 if(id >= 0){
                     if(loopNum > 0){
 
-                    item += System.lineSeparator();
+                        item.append(System.lineSeparator());
 
                     }
 
@@ -119,17 +120,17 @@ public abstract class CommonManagement {
         
                             for(int i=0; i<lineArray.length - 1; i++) {
     
-                                item += lineArray[i] + ", ";
+                                item.append(lineArray[i] + ", ");
 
                             }
 
-                            item += "0";
+                            item.append("0");
 
                         }
                     }else{
 
                         //삭제 부분 제외한 파일 부분 읽어오기
-                        item += line;
+                        item.append(line);
 
         		    }
 
@@ -146,7 +147,7 @@ public abstract class CommonManagement {
             }
 
     		//수정할 문구 받아서 파일 재작성
-            add(fileName, item);
+            add(fileName, item.toString());
 
             return true;
 
