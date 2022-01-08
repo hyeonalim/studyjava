@@ -38,7 +38,7 @@ public class DataType {
         }
     }
     
-    public String getDataType(String line){
+    private String getDataType(String line){
 
         //연산자가 있는 곳이 어딘지 값 가져오기
         for(int i = 0; i < line.length(); i++){

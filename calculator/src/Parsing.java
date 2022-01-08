@@ -15,7 +15,7 @@ public class Parsing {
 
     }
 
-    public String getOperator(String line){
+    private String getOperator(String line){
 
         char operatorNum = 0;
         String operator = null;
