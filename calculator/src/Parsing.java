@@ -64,11 +64,10 @@ public class Parsing {
     /**
      * 문자의 데이터 타입으로 바꿔주기
      * 
-     * @param <T>
      * @param data 계산식 중 연산자를 제외한 문자 하나
      * @return 문자의 데이터 타입으로 바꿔 보내준다.
      */
-    private <T> Object getDataType(String data) {
+    private Object getDataType(String data) {
 
         int findDotNum = getDotNum(data); // line에 dot 갯수
 

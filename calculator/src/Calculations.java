@@ -1,5 +1,13 @@
 public class Calculations {
 
+    /**
+     * 계산기 세팅
+     * 
+     * @param firstObject  첫번째 문구
+     * @param operator     연산자
+     * @param secondObject 두번째 문구
+     * @return 결과값 return
+     */
     public Object setCalculate(Object firstObject, String operator, Object secondObject) {
 
         String firstDataType = firstObject.getClass().getSimpleName();
@@ -178,7 +186,8 @@ public class Calculations {
      * @param first      첫 문구
      * @param operator   연산자
      * @param second     두번째 문구
-     * @param typeChange
+     * @param typeChange 인풋 순서가 바뀌면 바뀐대로 결과를 내주기 위해 순서가 바뀌었는지 체크하는 값
+     *                   0이면 순서 변화 없음, 1이면 순서에 변화가 있음
      * @return 계산결과
      */
     public float calculate(int first, String operator, float second, int typeChange) {
@@ -244,7 +253,8 @@ public class Calculations {
      * @param first      첫 문구
      * @param operator   연산자
      * @param second     두번째 문구
-     * @param typeChange
+     * @param typeChange 인풋 순서가 바뀌면 바뀐대로 결과를 내주기 위해 순서가 바뀌었는지 체크하는 값
+     *                   0이면 순서에 변화가 없음, 1이면 순서에 변화가 있음
      * @return 계산 결과 return
      */
     public String calculate(String first, String operator, int second, int typeChange) {
@@ -268,9 +278,12 @@ public class Calculations {
     /**
      * String 계산기 (float, String 혼합)
      * 
-     * @param first
-     * @param operator
-     * @param second
+     * @param first      첫 문구
+     * @param operator   연산자
+     * @param second     두번째 문구
+     * @param typeChange 인풋 순서가 바뀌면 바뀐대로 결과를 내주기 위해 순서가 바뀌었는지 체크하는 값
+     *                   0이면 순서에 변화가 없음, 1이면 순서에 변화가 있음
+     * @return 계산 결과 return
      */
     public String calculate(String first, String operator, float second, int typeChange) {
 
